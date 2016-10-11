@@ -50,7 +50,7 @@ Including an example of how to use your role (for instance, with variables passe
           extra_lines: |
             # Mööp
       roles:
-         - { role: rs_collector, tags: [ 'rs_collector' ], _rs_collector: "{{ rS_COLLECTOR }}" }
+s        - { role: rs_collector, tags: [ 'rs_collector' ], _rs_collector: "{{ RS_COLLECTOR }}" }
 ```
 
 License
