@@ -32,8 +32,6 @@ Including an example of how to use your role (for instance, with variables passe
         RW_APT_CACHE_UPDATE: yes
         RS_COLLECTOR:
           use_default_config: yes
-          enabled: yes
-          install: yes
           server:
             ip: localhost
             port: 8070

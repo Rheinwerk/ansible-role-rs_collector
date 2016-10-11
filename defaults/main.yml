@@ -2,8 +2,6 @@
 
 _rs_collector:
   use_default_config: yes
-  enabled: yes
-  install: yes
   server:
     ip: localhost
     port: 8070
