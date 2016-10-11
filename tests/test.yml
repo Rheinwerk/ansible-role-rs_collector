@@ -1,0 +1,27 @@
+---
+- hosts: localhost
+  connection: local
+  become: yes
+  vars:
+    RW_APT_CACHE_UPDATE: yes
+    RS_COLLECTOR:
+      use_default_config: yes
+      enabled: yes
+      install: yes
+      server:
+        ip: localhost
+        port: 8070
+      hostname: "{{ ansible_hostname }}"
+      domain:
+      hostgroup: my-group
+      common:
+        tags:
+          one_tag: one_value
+      galera:
+        - user: root
+          password: toor
+          socket: /var/lib/mysql.sock
+      extra_lines: |
+        # Mööp
+  roles:
+    - { role: ansible-role-rs_collector, tags: [ 'rs_collector' ], _rs_collector: "{{ RS_COLLECTOR }}" }

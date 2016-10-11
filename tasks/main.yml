@@ -1,0 +1,29 @@
+---
+
+- name: Add packagecloud gpg key for lukaspustina repository
+  apt_key: id=D59097AB url=https://packagecloud.io/lukaspustina/opensource/gpgkey state=present
+
+- name: Add lukaspustina opensource repository
+  apt_repository: repo="deb https://packagecloud.io/lukaspustina/opensource/ubuntu/ trusty main" state=present
+  register: repo_added
+
+- name: Apt Update
+  apt: update_cache=yes
+  when: RW_APT_CACHE_UPDATE is defined or repo_added|changed
+
+- set_fact:
+    install_state: latest
+  when: RW_ENABLE_DOWNLOADS is defined
+
+- name: Install rs-collector
+  apt: name=rs-collector state={{ install_state|default('present') }}
+
+- name: Enable rs-collector
+  service: name=rs-collector enabled=yes
+
+- name: Configure rs-collector
+  template: src=etc/rs-collector.conf.j2 dest=/etc/rs-collector.conf owner=root group=root mode=0640
+  when: _rs_collector.use_default_config
+  notify:
+    - Restart rs-collector
+

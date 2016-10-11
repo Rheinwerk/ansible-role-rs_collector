@@ -1,0 +1,15 @@
+galaxy_info:
+  author: Lukas Pustina
+  description: Installs and configures rs-collector,the Rust based, scollector compatible telemetry collector for Bosun.
+  company: Rheinwerk
+  license: license (MIT)
+  min_ansible_version: 2.0
+  platforms:
+  - name: Ubuntu
+    versions:
+    - all
+  galaxy_tags:
+    - Bosun
+    - scollector
+dependencies: []
+

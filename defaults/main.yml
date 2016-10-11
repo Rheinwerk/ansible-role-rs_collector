@@ -1,0 +1,22 @@
+---
+
+_rs_collector:
+  use_default_config: yes
+  enabled: yes
+  install: yes
+  server:
+    ip: localhost
+    port: 8070
+  hostname: "{{ ansible_hostname }}"
+  domain:
+  hostgroup: my-group
+  common:
+    tags:
+      one_tag: one_value
+  galera:
+    - user: root
+      password: toor
+      socket: /var/lib/mysql.sock
+  extra_lines:
+    # Mööp
+

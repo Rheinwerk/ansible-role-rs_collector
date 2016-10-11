@@ -1,0 +1,32 @@
+Host = "{{ _rs_collector.server.ip }}:{{ _rs_collector.server.port }}"
+Hostname = "{{ _rs_collector.hostname }}"
+
+[Tags]
+  hostgroup = "{{ _rs_collector.hostgroup }}"
+{% for k,v in _rs_collector.common.tags.iteritems() %}
+  {{ k }} = "{{ v }}"
+{% endfor %}
+
+{% if _rs_collector.galera is defined %}
+{% for g in _rs_collector.galera %}
+# Currently, only one Galera Collector is supported
+[Galera]
+{% if g.user is defined %}
+  User = "{{ g.user }}"
+{% endif %}
+{% if g.password is defined %}
+  Password = "{{ g.password }}"
+{% endif %}
+{% if g.host is defined %}
+  Host = "{{ g.host }}"
+{% endif %}
+{% if g.socket is defined %}
+  Socket = "{{ g.socket }}"
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if _rs_collector.extra_lines is defined %}
+{{ _rs_collector.extra_lines }}
+{% endif %}
+
