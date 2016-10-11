@@ -13,7 +13,7 @@ None.
 Role Variables
 --------------
 
-There are three variables that drive this role: `_rs_collector``, `RW_APT_CACHE_UPDATE`, and `RW_ENABLE_DOWNLOADS`. `_rs_collector` is a map that contains all configuration and settings for this role. `RW_APT_CACHE_UPDATE` and `RW_ENABLE_DOWNLOADS` may be specified as _extra variables_ on invocation of Ansible in order to force `apt-get update` or install the latest version of rs-configuration, respectively. Please see `defaults/main.yml` for details.
+There are three variables that drive this role: `_rs_collector`, `RW_APT_CACHE_UPDATE`, and `RW_ENABLE_DOWNLOADS`. `_rs_collector` is a map that contains all configuration and settings for this role. `RW_APT_CACHE_UPDATE` and `RW_ENABLE_DOWNLOADS` may be specified as _extra variables_ on invocation of Ansible in order to force `apt-get update` or install the latest version of rs-configuration, respectively. Please see `defaults/main.yml` for details.
 
 Dependencies
 ------------
