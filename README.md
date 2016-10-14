@@ -45,6 +45,10 @@ Including an example of how to use your role (for instance, with variables passe
             - user: root
               password: toor
               socket: /var/lib/mysql.sock
+          hasipaddr:
+            ipv4:
+              - "127.0.0.1"
+              - "192.168.205.7"
           extra_lines: |
             # Mööp
       roles:

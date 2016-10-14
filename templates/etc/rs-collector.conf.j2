@@ -26,6 +26,13 @@ Hostname = "{{ _rs_collector.hostname }}"
 {% endfor %}
 {% endif %}
 
+{% if _rs_collector.hasipaddr is defined %}
+[HasIpAddr]
+{% if _rs_collector.hasipaddr.ipv4 is defined %}
+  Ipv4 = [ "{{ _rs_collector.hasipaddr.ipv4 | join('", "') }}" ]
+{% endif %}
+{% endif %}
+
 {% if _rs_collector.extra_lines is defined %}
 {{ _rs_collector.extra_lines }}
 {% endif %}
