@@ -33,6 +33,10 @@ Hostname = "{{ _rs_collector.hostname }}"
 {% endif %}
 {% endif %}
 
+{% if _rs_collector.postfix is defined %}
+[Postfix]
+{% endif %}
+
 {% if _rs_collector.extra_lines is defined %}
 {{ _rs_collector.extra_lines }}
 {% endif %}

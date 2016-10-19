@@ -49,6 +49,7 @@ Including an example of how to use your role (for instance, with variables passe
             ipv4:
               - "127.0.0.1"
               - "192.168.205.7"
+          postfix: []
           extra_lines: |
             # Mööp
       roles:
