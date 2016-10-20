@@ -33,6 +33,22 @@ Hostname = "{{ _rs_collector.hostname }}"
 {% endif %}
 {% endif %}
 
+{% if _rs_collector.mongo is defined %}
+{% for m in _rs_collector.mongo %}
+[[Mongo]]
+  Name = "{{ m.name }}"
+{% if m.user is defined %}
+  User = "{{ m.user }}"
+{% endif %}
+{% if m.password is defined %}
+  Password = "{{ m.password }}"
+{% endif %}
+  Host = "{{ m.host }}"
+  Port = {{ m.port }}
+
+{% endfor %}
+{% endif %}
+
 {% if _rs_collector.postfix is defined %}
 [Postfix]
 {% endif %}

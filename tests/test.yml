@@ -23,6 +23,13 @@
         ipv4:
           - "127.0.0.1"
           - "192.168.205.7"
+      mongo:
+        - name: replicaset01
+          host: localhost
+          port: 27015
+        - name: replicaset02
+          host: localhost
+          port: 27016
       postfix: []
       extra_lines: |
         # Mööp

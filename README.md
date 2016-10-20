@@ -49,11 +49,15 @@ Including an example of how to use your role (for instance, with variables passe
             ipv4:
               - "127.0.0.1"
               - "192.168.205.7"
+          mongo:
+            - name: replicaset01
+              host: localhost
+              port: 27017
           postfix: []
           extra_lines: |
             # Mööp
       roles:
-s        - { role: rs_collector, tags: [ 'rs_collector' ], _rs_collector: "{{ RS_COLLECTOR }}" }
+         - { role: rs_collector, tags: [ 'rs_collector' ], _rs_collector: "{{ RS_COLLECTOR }}" }
 ```
 
 License
