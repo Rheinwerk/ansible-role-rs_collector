@@ -19,6 +19,9 @@
         - user: root
           password: toor
           socket: /var/lib/mysql.sock
+      jvm:
+        - command: regex
+          name: "assigned name"
       hasipaddr:
         ipv4:
           - "127.0.0.1"

@@ -26,6 +26,15 @@ Hostname = "{{ _rs_collector.hostname }}"
 {% endfor %}
 {% endif %}
 
+{% if _rs_collector.jvm is defined %}
+{% for j in _rs_collector.jvm %}
+[[Jvm]]
+  Command = "{{ j.command }}"
+  Name = "{{ j.name }}"
+
+{% endfor %}
+{% endif %}
+
 {% if _rs_collector.hasipaddr is defined %}
 [HasIpAddr]
 {% if _rs_collector.hasipaddr.ipv4 is defined %}

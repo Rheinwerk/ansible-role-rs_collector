@@ -45,6 +45,9 @@ Including an example of how to use your role (for instance, with variables passe
             - user: root
               password: toor
               socket: /var/lib/mysql.sock
+          jvm:
+            - command: regex
+              name: "assigned name"
           hasipaddr:
             ipv4:
               - "127.0.0.1"
