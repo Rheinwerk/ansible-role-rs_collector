@@ -1,15 +1,22 @@
 ---
 
-- name: Add packagecloud gpg key for lukaspustina repository
-  apt_key: id=D59097AB url=https://packagecloud.io/lukaspustina/opensource/gpgkey state=present
+# Optionally Add Repos
+- block:
 
-- name: Add lukaspustina opensource repository
-  apt_repository: repo="deb https://packagecloud.io/lukaspustina/opensource/ubuntu/ trusty main" state=present
-  register: repo_added
+  - name: Add Repo Signing Keys
+    apt_key: id="{{ item.key_id }}" url="{{ item.key_url }}"
+    with_items: "{{ _rs_collector.apt_repos }}"
 
-- name: Apt Update
-  apt: update_cache=yes
-  when: RW_APT_CACHE_UPDATE is defined or repo_added|changed
+  - name: Add Apt Repo
+    apt_repository: repo="{{ item.repo_line }}" state=present
+    with_items: "{{ _rs_collector.apt_repos }}"
+    register: repo_added
+
+  - name: Apt Update
+    apt: update_cache=yes
+    when: RW_APT_CACHE_UPDATE is defined or repo_added|changed
+
+  when: _rs_collector.apt_repos is defined
 
 - set_fact:
     install_state: latest

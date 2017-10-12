@@ -2,6 +2,10 @@
 
 _rs_collector:
   use_default_config: yes
+  apt_repos:
+    - key_id: "D59097AB"
+      key_url: "https://packagecloud.io/lukaspustina/opensource/gpgkey"
+      repo_line: "deb https://packagecloud.io/lukaspustina/opensource/ubuntu/ trusty main"
   server:
     ip: localhost
     port: 8070
