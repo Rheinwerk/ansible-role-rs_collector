@@ -25,6 +25,9 @@
 - name: Install rs-collector
   apt: name=rs-collector state={{ install_state|default('present') }}
 
+- name: Add SSL_CERT_DIR as env variable in rs-collector config
+  lineinfile: line="env SSL_CERT_DIR=/etc/ssl/certs\n" state=present insertbefore="pre-start script" dest=/etc/init/rs-collector.conf
+
 - name: Enable rs-collector
   service: name=rs-collector enabled=yes
 
