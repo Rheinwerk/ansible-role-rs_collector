@@ -1,5 +1,4 @@
 ---
-
 _rs_collector:
   use_default_config: yes
   apt_repos:
@@ -39,4 +38,3 @@ _rs_collector:
   postfix: []
   extra_lines:
     # Mööp
-

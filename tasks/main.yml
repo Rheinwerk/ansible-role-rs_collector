@@ -1,5 +1,4 @@
 ---
-
 # Optionally Add Repos
 - block:
 
@@ -36,4 +35,3 @@
   when: _rs_collector.use_default_config
   notify:
     - Restart rs-collector
-
