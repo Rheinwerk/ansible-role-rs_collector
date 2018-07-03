@@ -26,6 +26,12 @@ _rs_collector:
     ipv4:
       - "127.0.0.1"
       - "192.168.205.7"
+  megaraid:
+    megacli_command: "/opt/MegaRAID/MegaCli/MegaCli64"
+    # do not specify to query ALL adapters. Otherwise, adapter number
+    # adapter: 0
+    # only sample every N intervals -- no need to store raid info every few seconds
+    # tick_interval: 40
   mongo:
     - name: replicaset01
       host: localhost

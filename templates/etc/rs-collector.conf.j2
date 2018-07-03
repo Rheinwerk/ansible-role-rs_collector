@@ -58,6 +58,15 @@ Hostname = "{{ _rs_collector.hostname }}"
 {% endfor %}
 {% endif %}
 
+{% if _rs_collector.megaraid is defined %}
+[Megaraid]
+tick_interval = {{ _rs_collector.megaraid.tick_interval|default(40) }}
+megacli_command = "{{ _rs_collector.megaraid.megacli_command }}"
+{% if _rs_collector.megaraid.adapter is defined %}
+adapter = {{ _rs_collector.megaraid.adapter }}
+{% endif %}
+{% endif %}
+
 {% if _rs_collector.postfix is defined %}
 [Postfix]
 {% endif %}
