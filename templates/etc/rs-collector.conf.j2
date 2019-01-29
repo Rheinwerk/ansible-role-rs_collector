@@ -3,7 +3,7 @@ Hostname = "{{ _rs_collector.hostname }}"
 
 [Tags]
   hostgroup = "{{ _rs_collector.hostgroup }}"
-{% for k,v in _rs_collector.common.tags.iteritems() %}
+{% for k,v in _rs_collector.common.tags.items() %}
   {{ k }} = "{{ v }}"
 {% endfor %}
 
