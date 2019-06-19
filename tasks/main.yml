@@ -24,8 +24,21 @@
 - name: Install rs-collector
   apt: name=rs-collector state={{ install_state|default('present') }}
 
-- name: Add SSL_CERT_DIR as env variable in rs-collector config
+- name: Add SSL_CERT_DIR as env variable in rs-collector startup (upstart)
   lineinfile: line="env SSL_CERT_DIR=/etc/ssl/certs" state=present insertbefore="pre-start script" dest=/etc/init/rs-collector.conf
+  when: ansible_service_mgr == "upstart"
+
+- name: Add SSL_CERT_DIR as env variable in rs-collector startup (systemd)
+  copy:
+    src: "{{ item }}"
+    dest: "/{{ item }}"
+    mode: 0644
+    owner: root
+    group: root
+  with_items:
+    - "etc/systemd/system/rs-collector.service.d/50-env-ssl-dir.conf"
+
+  when: ansible_service_mgr == "systemd"
 
 - name: Enable rs-collector
   service: name=rs-collector enabled=yes
