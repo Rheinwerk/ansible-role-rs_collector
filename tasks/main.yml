@@ -38,6 +38,17 @@
   with_items:
     - "etc/systemd/system/rs-collector.service.d/50-env-ssl-dir.conf"
 
+- name: Log to dedicated log file (systemd)
+  copy:
+    src: "{{ item }}"
+    dest: "/{{ item }}"
+    mode: 0644
+    owner: root
+    group: root
+  with_items:
+    - "etc/systemd/system/rs-collector.service.d/20-stdout-err.conf"
+
+
   when: ansible_service_mgr == "systemd"
 
 - name: Enable rs-collector
