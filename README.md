@@ -3,7 +3,7 @@ rs-collector
 
 This roles installs and configures rs-collector, the Rust based, scollector compatible telemetry collector for Bosun.
 
-[![Build Status](https://travis-ci.org/Rheinwerk/ansible-role-rs_collector.svg?branch=master)](https://travis-ci.org/Rheinwerk/ansible-role-rs_collector)
+[![Build Status](https://github.com/Rheinwerk/ansible-role-rs_collector/actions/workflows/ci.yml/badge.svg)](https://github.com/Rheinwerk/ansible-role-rs_collector/actions/workflows/ci.yml)
 
 Requirements
 ------------
