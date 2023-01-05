@@ -1,3 +1,5 @@
 ---
 - name: Restart rs-collector
-  service: name=rs-collector state=restarted
+  service:
+    name: rs-collector
+    state: restarted
