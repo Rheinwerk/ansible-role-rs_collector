@@ -1,27 +1,25 @@
 ---
 # Optionally Add Repos
 - name: Add Repos
-  block:
-
-  - name: Add Repo Signing Keys
-    apt_key:
-      id: "{{ item.key_id }}"
-      url: "{{ item.key_url }}"
-    with_items: "{{ _rs_collector.apt_repos }}"
-
-  - name: Add Apt Repo
-    apt_repository:
-      repo: "{{ item.repo_line }}"
-      state: present
-    with_items: "{{ _rs_collector.apt_repos }}"
-    register: repo_added
-
-  - name: Apt Update
-    apt:
-      update_cache: yes
-    when: RW_APT_CACHE_UPDATE is defined or repo_added is changed
-
   when: _rs_collector.apt_repos is defined
+  block:
+    - name: Add Repo Signing Keys
+      apt_key:
+        id: "{{ item.key_id }}"
+        url: "{{ item.key_url }}"
+      with_items: "{{ _rs_collector.apt_repos }}"
+
+    - name: Add Apt Repo
+      apt_repository:
+        repo: "{{ item.repo_line }}"
+        state: present
+      with_items: "{{ _rs_collector.apt_repos }}"
+      register: repo_added
+
+    - name: Apt Update
+      apt:
+        update_cache: yes
+      when: RW_APT_CACHE_UPDATE is defined or repo_added is changed
 
 - name: Set install_state
   set_fact:
