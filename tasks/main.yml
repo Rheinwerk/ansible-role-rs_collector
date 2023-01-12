@@ -1,28 +1,35 @@
 ---
 # Optionally Add Repos
-- block:
-
-  - name: Add Repo Signing Keys
-    apt_key: id="{{ item.key_id }}" url="{{ item.key_url }}"
-    with_items: "{{ _rs_collector.apt_repos }}"
-
-  - name: Add Apt Repo
-    apt_repository: repo="{{ item.repo_line }}" state=present
-    with_items: "{{ _rs_collector.apt_repos }}"
-    register: repo_added
-
-  - name: Apt Update
-    apt: update_cache=yes
-    when: RW_APT_CACHE_UPDATE is defined or repo_added is changed
-
+- name: Add Repos
   when: _rs_collector.apt_repos is defined
+  block:
+    - name: Add Repo Signing Keys
+      apt_key:
+        id: "{{ item.key_id }}"
+        url: "{{ item.key_url }}"
+      with_items: "{{ _rs_collector.apt_repos }}"
 
-- set_fact:
+    - name: Add Apt Repo
+      apt_repository:
+        repo: "{{ item.repo_line }}"
+        state: present
+      with_items: "{{ _rs_collector.apt_repos }}"
+      register: repo_added
+
+    - name: Apt Update
+      apt:
+        update_cache: yes
+      when: RW_APT_CACHE_UPDATE is defined or repo_added is changed
+
+- name: Set install_state
+  set_fact:
     install_state: latest
   when: RW_ENABLE_DOWNLOADS is defined
 
-- name: Install rs-collector
-  apt: name=rs-collector state={{ install_state|default('present') }}
+- name: Install rs-collector # noqa args[module]
+  apt:
+    name: rs-collector
+    state: "{{ install_state | default('present') }}"
 
 - name: Add SSL_CERT_DIR as env variable in rs-collector startup (upstart)
   lineinfile:
@@ -55,10 +62,17 @@
   when: ansible_service_mgr == "systemd"
 
 - name: Enable rs-collector
-  service: name=rs-collector enabled=yes
+  service:
+    name: rs-collector
+    enabled: yes
 
 - name: Configure rs-collector
-  template: src=etc/rs-collector.conf.j2 dest=/etc/rs-collector.conf owner=root group=root mode=0640
+  template:
+    src: etc/rs-collector.conf.j2
+    dest: /etc/rs-collector.conf
+    owner: root
+    group: root
+    mode: 0640
   when: _rs_collector.use_default_config
   notify:
     - Restart rs-collector
