@@ -4,35 +4,35 @@
   when: _rs_collector.apt_repos is defined
   block:
     - name: Add Repo Signing Keys
-      apt_key:
+      ansible.builtin.apt_key:
         id: "{{ item.key_id }}"
         url: "{{ item.key_url }}"
       with_items: "{{ _rs_collector.apt_repos }}"
 
     - name: Add Apt Repo
-      apt_repository:
+      ansible.builtin.apt_repository:
         repo: "{{ item.repo_line }}"
         state: present
       with_items: "{{ _rs_collector.apt_repos }}"
       register: repo_added
 
     - name: Apt Update
-      apt:
+      ansible.builtin.apt:
         update_cache: yes
       when: RW_APT_CACHE_UPDATE is defined or repo_added is changed
 
 - name: Set install_state
-  set_fact:
+  ansible.builtin.set_fact:
     install_state: latest
   when: RW_ENABLE_DOWNLOADS is defined
 
 - name: Install rs-collector # noqa args[module]
-  apt:
+  ansible.builtin.apt:
     name: rs-collector
     state: "{{ install_state | default('present') }}"
 
 - name: Add SSL_CERT_DIR as env variable in rs-collector startup (upstart)
-  lineinfile:
+  ansible.builtin.lineinfile:
     line: "env SSL_CERT_DIR=/etc/ssl/certs"
     state: present
     insertbefore: "pre-start script"
@@ -40,7 +40,7 @@
   when: ansible_service_mgr == "upstart"
 
 - name: Add SSL_CERT_DIR as env variable in rs-collector startup (systemd)
-  copy:
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: "/{{ item }}"
     mode: 0644
@@ -51,7 +51,7 @@
   when: ansible_service_mgr == "systemd"
 
 - name: Log to dedicated log file (systemd)
-  copy:
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: "/{{ item }}"
     mode: 0644
@@ -62,12 +62,12 @@
   when: ansible_service_mgr == "systemd"
 
 - name: Enable rs-collector
-  service:
+  ansible.builtin.service:
     name: rs-collector
     enabled: yes
 
 - name: Configure rs-collector
-  template:
+  ansible.builtin.template:
     src: etc/rs-collector.conf.j2
     dest: /etc/rs-collector.conf
     owner: root
