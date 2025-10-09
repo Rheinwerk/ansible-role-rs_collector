@@ -43,7 +43,7 @@
   ansible.builtin.copy:
     src: "{{ item }}"
     dest: "/{{ item }}"
-    mode: 0644
+    mode: "0644"
     owner: root
     group: root
   with_items:
@@ -54,7 +54,7 @@
   ansible.builtin.copy:
     src: "{{ item }}"
     dest: "/{{ item }}"
-    mode: 0644
+    mode: "0644"
     owner: root
     group: root
   with_items:
@@ -72,7 +72,7 @@
     dest: /etc/rs-collector.conf
     owner: root
     group: root
-    mode: 0640
+    mode: "0640"
   when: _rs_collector.use_default_config
   notify:
     - Restart rs-collector
