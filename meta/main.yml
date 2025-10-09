@@ -1,6 +1,5 @@
 galaxy_info:
-  author: Lukas Pustina
-  namespace: rheinwerk
+  author: rheinwerk
   role_name: rs_collector
   description: Installs and configures rs-collector, the Rust based, scollector compatible telemetry collector for Bosun.
   company: Rheinwerk
